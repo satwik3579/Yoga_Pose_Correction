@@ -10,3 +10,10 @@
 <b>P.Harshitha</b>
 </br>
 <b>P.Satwik</b>
+
+
+</br>
+<h4></h4>create virtual environment</h4>
+</br>
+then type this on terminal "pip install -r requirements.txt"
+
