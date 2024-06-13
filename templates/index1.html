@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Pose</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    
+    <div class="container">
+    <h1 class="display-4 font-weight-bolder text-center">Suryanamaskar</h1>
+    <img class="border border-secondary rounded-lg mb-4 d-block mx-auto" src="https://static.wixstatic.com/media/84dfe1_465f720e44aa4fd2be45f1b3a49a2e5a~mv2.png/v1/fill/w_939,h_726,al_c,q_90,enc_auto/84dfe1_465f720e44aa4fd2be45f1b3a49a2e5a~mv2.png" width="740px" height="572px">
+    
+    
+    <h1>What is Suryanamaskar?</h1>
+    
+    <p>Yogasana is designed to keep two things in consideration one is to keep the abdomen flat ( there should not be fat around the stomach ) and the other is to retain the flexibility of the spine.</p>
+    
+    <p>It has been said by Joseph Pilates that <span class="quote">"You are only as young as your spine is flexible".</span></p>
+    
+    <p><strong>Suryanamaskar</strong> is a sequence of twelve different postures that involve forward bends and backbends, synchronizing the breath. The Practice of Suryanamaskar is a perfect routine to bring flexibility to the spine and also to reduce fat around the abdomen.</p>
+    
+    <p><strong>Surya</strong> in Sanskrit is sun and <strong>namaskar</strong> is praying by joining both hands together. Hence Surya namaskar is pronounced as Sunsalutation in English. Sun salutation is a way of offering respect to the sun god as he represents health and wealth.</p>
+    
+    <p>According to yogic thoughts, it is believed that offering prayer to the sun is blessed with health and prosperity.</p>
+    
+    <p>The twelve powerful posture of Suryanamaskar activates all the organs and glands of the human body and thereby ensures it functions properly for healthy living. This is known to be one of the best techniques to reduce fat faster as it burns more calories in a short span.</p>
+    
+    <p>Initially, you can start with 12 rounds and gradually increase to more than 50 rounds based on your fitness level and time availability. This can be practiced from the comfort of your home as you need a small space to accommodate a yoga mat and freehand movement.</p>
+    
+    <p>Most Yoga Classes use this routine as a warmup sequence which should be done before attempting the Asana. The Asana is usually retained for about 20 seconds or more hence warming up is essential to avoid injuries.</p>
+    
+    <p>The two major advantage of this workout is it comes at less price, and you must spend only on a good yoga mat and rather expensive equipment, and this is suitable even for people who live on a tight schedule.</p>
+    
+    <div class="note">
+        <p>It must be noted that Suryanamaskar is practiced on an empty stomach or no food must be consumed at least three to four hours beforehand and it is a must to learn under the guidance of an experienced yoga teacher.</p>
+        
+        <p>Suryanamaskar is usually done facing the sun in the morning and the direction of sunset in the evening.</p>
+    </div>
+    
+    <h2>How to do Suryanamaskar:</h2>
+    
+    <p>Different teachers have different ways of teaching the sequence of suryanamaskar. One of the popular authentic schools of yoga called the Mysore style Ashtanga yoga has two types which are Called type A and type B and the method we learn here is usually followed by people who generally practice hatha yoga.</p>
+    
+    <p>Whatever the difference is a novice must first try to master one style and adopt that regularly to gain muscle memory before trying other styles.</p>
+    
+    <p>One must not forget to follow the simple thumb rule of breathing while doing the sequence which is to inhale while bending back and exhale while bending forward.</p>
+    
+    <div class="instruction">
+        <p><strong>Instructions:</strong></p>
+        <ul>
+            <li>Start by standing at the edge of your mat, keep your feet together and balance your weight equally on both feet.</li>
+            <li>Expand your chest and relax your shoulders.</li>
+            <li>Inhale and lift both arms up from the sides. Exhale and bring your palms together in front of the chest in prayer position.</li>
+            <li>Inhale and lift your arms up and back, keeping the biceps close to the ears. Stretch the whole body up from the heels to the tips of the fingers.</li>
+            <li>Exhale and bend forward from the waist, keeping the spine erect. As you exhale completely, bring the hands down to the floor beside the feet.</li>
+            <li>Inhale and take the right leg back as far as possible. Bring the right knee to the floor and look up.</li>
+            <li>Exhale and take the left leg back and bring the whole body in a straight line.</li>
+            <li>Inhale and bring the right foot forward in between the hands. Bring the left knee down to the floor, press the hips down and look up.</li>
+            <li>Exhale and bring the left foot forward. Keep the palms on the floor. You may bend the knees if necessary.</li>
+            <li>Inhale and lift the arms up and back, keeping the biceps close to the ears. Stretch the whole body up from the heels to the tips of the fingers.</li>
+            <li>Exhale and straighten the body. Bring the arms down and relax in this position.</li>
+        </ul>
+    </div>
+    <div class="row row-cols-lg-4 ml-1">
+        <form action="{{ url_for('page1') }}" method="get">
+            <button class="btn btn-outline-dark btn-lg mb-3 " type="submit">1.PranamaSana</button>
+        </form>
+        <form action="{{ url_for('page2') }}" method="get">
+            <button class="btn btn-outline-dark btn-lg mb-3" type="submit">2.Hasta Uttanasama</button>
+        </form>
+        <form action="{{ url_for('page3') }}" method="get">
+            <button class="btn btn-outline-dark btn-lg mb-3" type="submit">3.Padahastasana</button>
+        </form>
+        <form action="{{ url_for('page4') }}" method="get">
+            <button class="btn btn-outline-dark btn-lg mb-3" type="submit">4.Ashwa Sanchalanasana</button>
+        </form>
+        <form action="{{ url_for('page5') }}" method="get">
+            <button class="btn btn-outline-dark btn-lg mb-3" type="submit">5.chaturanga Dandasana</button>
+        </form>
+        <form action="{{ url_for('page6') }}" method="get">
+            <button class="btn btn-outline-dark btn-lg mb-3" type="submit">6.Ashtanga Namaskar</button>
+        </form>
+        <form action="{{ url_for('page7') }}" method="get">
+            <button class="btn btn-outline-dark btn-lg mb-3" type="submit">7.Bhujangasana</button>
+        </form>
+        <form action="{{ url_for('page8') }}" method="get">
+            <button class="btn btn-outline-dark btn-lg mb-3" type="submit">8.Adho Mukha svanasana</button>
+        </form>
+        
+    </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</body>
+</html>

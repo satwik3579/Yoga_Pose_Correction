@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aasana1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style6.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Ashtanga Namaskar</h1>
+        <p>Ashtanga Namaskara is a prone posture with eight parts of the body in contact with the ground: 
+           both feet, both knees, both hands, the chest, and either the chin or the forehead. 
+           The hands are below the shoulders, the elbows bent.
+        </p>
+        <div class="image-container">
+            <img src="https://static.wixstatic.com/media/84dfe1_46b83807026a42ba9f2fa6ace4840248~mv2.png/v1/fill/w_438,h_338,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/84dfe1_46b83807026a42ba9f2fa6ace4840248~mv2.png" alt="Ashtanga Namaskar">
+        </div>
+        <p>Ashta is eight and anga is limbs, here eight parts are in contact with the floor which are your feet, knees, chest, chin, and palms lying alongside your chest. From dandasana drop your knees on the floor then chest and chin.
+        </p>
+        <h1>Pose Analyzer</h1>
+        <button class="btn" onclick="startPeriodicAnalysis('ashtanga namaskara')">Analyse Ashtanga Namaskar</button>
+        <div id="result"></div>
+        <button id="toggle-speech" class="toggle-button" onclick="toggleSpeech()">Speech: Off</button>
+    </div>
+    
+    <script>
+        let speechEnabled = false;
+        let intervalId = null;
+
+        function analyzePose(poseName) {
+            fetch('/analyze_pose', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ pose_name: poseName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = data.result;
+                if (speechEnabled) {
+                    speakText(data.result);
+                }
+                if (data.result === "Pose is correct") {
+                    clearInterval(intervalId);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                const errorMessage = 'Error analyzing pose';
+                document.getElementById('result').innerText = errorMessage;
+                if (speechEnabled) {
+                    speakText(errorMessage);
+                }
+            });
+        }
+
+        function speakText(text) {
+            const cleanedText = text.replace(/_/g, ' ');
+            const speech = new SpeechSynthesisUtterance(cleanedText);
+            speech.lang = 'en-US';
+            window.speechSynthesis.speak(speech);
+        }
+
+        function toggleSpeech() {
+            speechEnabled = !speechEnabled;
+            const toggleButton = document.getElementById('toggle-speech');
+            toggleButton.innerText = speechEnabled ? 'Speech: On' : 'Speech: Off';
+            toggleButton.classList.toggle('active', speechEnabled);
+        }
+
+        function startPeriodicAnalysis(poseName) {
+            analyzePose(poseName); // Initial call
+            intervalId = setInterval(function() {
+                analyzePose(poseName);
+            }, 7000); // Call every 7 seconds
+        }
+    </script>
+</body>
+</html>

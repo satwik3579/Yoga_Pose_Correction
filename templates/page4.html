@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aasana1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style4.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Ashwa Sanchalanasana</h1>
+        <p>Ashwa Sanchalasana is a low lunge Pose that prepares your body for deep backbends. Due to its vast range of movements to assist the body,
+           it is often considered as the balancing pose. Physically, ashwa sanchalasana is considered an excellent pose for the spine stretching, hip opening, and psoas flexibility. 
+           While the psychological effect includes: enhanced concentration, self-confidence, and builds the cognitive skills of the practitioners.
+        </p>
+        <div class="image-container">
+            <img src="https://static.wixstatic.com/media/84dfe1_feca6c4c315d400cb0f410f53e3a32b8~mv2.png/v1/fill/w_438,h_338,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/84dfe1_feca6c4c315d400cb0f410f53e3a32b8~mv2.png" alt="Ashwa Sanchalanasana">
+        </div>
+        <p>Breathing in, send your right leg back, as far back as possible. Bring the right knee to the floor and retain your left foot in the same position which is in between two palms. This pose gives a good stretch to the right quadriceps.
+        </p>
+        <h1>Pose Analyzer</h1>
+        <button class="btn" onclick="startPeriodicAnalysis('ashwasanchalanasana')">Analyse Ashwa Sanchalanasana</button>
+        <div id="result"></div>
+        <button id="toggle-speech" class="toggle-button" onclick="toggleSpeech()">Speech: Off</button>
+    </div>
+    
+    <script>
+        let speechEnabled = false;
+        let intervalId = null;
+
+        function analyzePose(poseName) {
+            fetch('/analyze_pose', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ pose_name: poseName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = data.result;
+                if (speechEnabled) {
+                    speakText(data.result);
+                }
+                if (data.result === "Pose is correct") {
+                    clearInterval(intervalId);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                const errorMessage = 'Error analyzing pose';
+                document.getElementById('result').innerText = errorMessage;
+                if (speechEnabled) {
+                    speakText(errorMessage);
+                }
+            });
+        }
+
+        function speakText(text) {
+            const cleanedText = text.replace(/_/g, ' ');
+            const speech = new SpeechSynthesisUtterance(cleanedText);
+            speech.lang = 'en-US';
+            window.speechSynthesis.speak(speech);
+        }
+
+        function toggleSpeech() {
+            speechEnabled = !speechEnabled;
+            const toggleButton = document.getElementById('toggle-speech');
+            toggleButton.innerText = speechEnabled ? 'Speech: On' : 'Speech: Off';
+            toggleButton.classList.toggle('active', speechEnabled);
+        }
+
+        function startPeriodicAnalysis(poseName) {
+            analyzePose(poseName); // Initial call
+            intervalId = setInterval(function() {
+                analyzePose(poseName);
+            }, 7000); // Call every 7 seconds
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padahastasana</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style3.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Padahastasana</h1>
+        <p>Padahastasana is a standing forward fold and one of the 12 basic postures of Hatha yoga. It is also the third pose of surya namaskar, the sun salutation sequence. 
+           It is believed to reduce tamas, which means heaviness or inertia in the body.This pose's name comes from the Sanskrit pada which means "foot," hasta meaning "hand" 
+           and asana meaning a "seat" or "posture."The English name for padahastasana is gorilla pose or hand under foot pose.
+        </p>
+        <img src="https://static.wixstatic.com/media/84dfe1_588704e6d0104e16881f3a7660428d44~mv2.png/v1/fill/w_438,h_338,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/84dfe1_588704e6d0104e16881f3a7660428d44~mv2.png" alt="Padahastasana">
+        <p>Padha means foot and hasta is palms. Breathing out bend forward, bring the palms down, and place them on either side of your feet and your forehead must be touching the knees.
+           ( It could be difficult for a beginner to reach the palms to the floor, hence try reaching the fingertip initially and bend only to the extent possible without jerk movements, with regular practice you must be able to gain the flexibility to put complete palms on the floor)
+        </p>
+        <h1>Pose Analyzer</h1>
+        <button class="btn" onclick="startPeriodicAnalysis('padangusthasana')">Analyse Padahastasana</button>
+        <div id="result"></div>
+        <button id="toggle-speech" class="toggle-button" onclick="toggleSpeech()">Speech: Off</button>
+    </div>
+    
+    <script>
+        let speechEnabled = false;
+        let intervalId = null;
+
+        function analyzePose(poseName) {
+            fetch('/analyze_pose', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ pose_name: poseName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = data.result;
+                if (speechEnabled) {
+                    speakText(data.result);
+                }
+                if (data.result === "Pose is correct") {
+                    clearInterval(intervalId);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                const errorMessage = 'Error analyzing pose';
+                document.getElementById('result').innerText = errorMessage;
+                if (speechEnabled) {
+                    speakText(errorMessage);
+                }
+            });
+        }
+
+        function speakText(text) {
+            const cleanedText = text.replace(/_/g, ' ');
+            const speech = new SpeechSynthesisUtterance(cleanedText);
+            speech.lang = 'en-US';
+            window.speechSynthesis.speak(speech);
+        }
+
+        function toggleSpeech() {
+            speechEnabled = !speechEnabled;
+            const toggleButton = document.getElementById('toggle-speech');
+            toggleButton.innerText = speechEnabled ? 'Speech: On' : 'Speech: Off';
+            toggleButton.classList.toggle('active', speechEnabled);
+        }
+
+        function startPeriodicAnalysis(poseName) {
+            analyzePose(poseName); // Initial call
+            intervalId = setInterval(function() {
+                analyzePose(poseName);
+            }, 7000); // Call every 7 seconds
+        }
+    </script>
+</body>
+</html>

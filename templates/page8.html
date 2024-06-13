@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aasana1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style8.css') }}">
+</head>
+<body>
+    <div class="container">
+    <h1>Adho Mukha svanasana</h1>
+    <p>Downward Dog Pose or Downward-facing Dog Pose, also called Adho Mukha Svanasana,
+       is an inversion asana, often practised as part of a flowing sequence of poses, especially Surya Namaskar, the Salute to the Sun.
+       The asana is commonly used in modern yoga as exercise. The asana does not have formally named variations, but several playful variants are used to assist beginning practitioners to become comfortable in the pose</p>
+    <div class="image-container">
+    <img src="https://static.wixstatic.com/media/84dfe1_159dbaed63ad43a584a3b9c5fa8bfb5c~mv2.png/v1/fill/w_438,h_338,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/84dfe1_159dbaed63ad43a584a3b9c5fa8bfb5c~mv2.png">
+    </div>
+
+    <p>Adhomukha svanasana in Sanskrit is a downward-facing dog. From bhujangasana exhale then raise your tailbone up and bring your head in between your arms so that your body makes an inverted " v ". This pose gives a good stretch to the shoulder and hamstring.</p>
+    
+    <h1>Pose Analyzer</h1>
+    <button class="btn" onclick="startPeriodicAnalysis('adhomukhasvanasana')">Analyze Adho Mukha svanasana</button>
+    
+    <div id="result"></div>
+    <button id="toggle-speech" class="toggle-button" onclick="toggleSpeech()">Speech: Off</button>
+</div>
+    <script>
+        let speechEnabled = false;
+        let intervalId = null;
+
+        function analyzePose(poseName) {
+            fetch('/analyze_pose', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ pose_name: poseName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = data.result;
+                if (speechEnabled) {
+                    speakText(data.result);
+                }
+                if (data.result === "Pose is correct") {
+                    clearInterval(intervalId);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                const errorMessage = 'Error analyzing pose';
+                document.getElementById('result').innerText = errorMessage;
+                if (speechEnabled) {
+                    speakText(errorMessage);
+                }
+            });
+        }
+
+        function speakText(text) {
+            const cleanedText = text.replace(/_/g, ' ');
+            const speech = new SpeechSynthesisUtterance(cleanedText);
+            speech.lang = 'en-US';
+            window.speechSynthesis.speak(speech);
+        }
+
+        function toggleSpeech() {
+            speechEnabled = !speechEnabled;
+            const toggleButton = document.getElementById('toggle-speech');
+            toggleButton.innerText = speechEnabled ? 'Speech: On' : 'Speech: Off';
+            toggleButton.classList.toggle('active', speechEnabled);
+        }
+
+        function startPeriodicAnalysis(poseName) {
+            analyzePose(poseName); // Initial call
+            intervalId = setInterval(function() {
+                analyzePose(poseName);
+            }, 7000); // Call every 7 seconds
+        }
+    </script>
+</body>
+</html>

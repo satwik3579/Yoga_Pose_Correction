@@ -1,0 +1,69 @@
+body {
+    
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1, h2 {
+    color: #0056b3;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+p {
+    margin: 10px 0;
+    text-align: left;
+    line-height: 1.8;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn, .toggle-button {
+    display: inline-block;
+    margin: 10px 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #0056b3;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover, .toggle-button:hover {
+    background-color: #003d80;
+}
+
+#result {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #e1f5fe;
+    border-left: 5px solid #03a9f4;
+    border-radius: 5px;
+}
+
+#toggle-speech.active {
+    background-color: #4caf50;
+}
